@@ -1,6 +1,8 @@
 Wellcome to my Schedule Manager Project!
 
 in order to start and bee able to see the project please follow the instructions
+(create new virtualenv and install the requirements.txt:
+pip install -r /path/to/requirements.txt)
 
 1. first we want to start the up
     open the terminal in the "elbit_app" project and then run the following command:
