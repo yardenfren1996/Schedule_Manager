@@ -1,31 +1,15 @@
-import json
-import urllib
 
-from django.shortcuts import render, get_object_or_404, redirect
-from django.views.generic import View, TemplateView, ListView, DetailView, CreateView, UpdateView, DeleteView
+from django.shortcuts import render
 from django.http import HttpResponseRedirect, HttpResponse
-from django.urls import reverse_lazy, reverse
+from django.urls import reverse
 from django.contrib.auth import authenticate, login, logout
-from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth.decorators import login_required
 from . import utils
-from django.template.defaulttags import register
-
-from django import forms
 
 import datetime
-from dateutil import relativedelta
 
 from .forms import WorkerForm, WorkerProfileInfoForm
-from . import models
 
-# test
-from .models import WorkerProfileInfo
-
-
-# Create your views here.
-
-# CBV
 
 
 # functions

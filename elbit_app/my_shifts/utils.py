@@ -1,6 +1,5 @@
 import datetime
 from . import heaputil
-import re
 import json
 import random
 from random import sample
@@ -53,7 +52,7 @@ CAPACITY_AND_VALUES = {
     'Saturday_Night': [CAPACITY_OPTIONS['night'], VALUE_OPTIONS['special_day']]}
 
 
-def get_next_sunday_date():
+def get_next_sunday_date() -> datetime:
     today_date = datetime.date.today()
     if today_date.weekday() == 6:
         next_sunday = today_date + datetime.timedelta(7)
@@ -65,14 +64,14 @@ def get_next_sunday_date():
     return next_sunday
 
 
-def get_next_week_dates(sunday):
+def get_next_week_dates(sunday: datetime) -> list[datetime]:
     week_dates = []
     for i in range(7):
         week_dates.append(sunday + datetime.timedelta(i))
     return week_dates
 
 
-def get_capacity_and_value(shift_date: datetime, shift_time: str):
+def get_capacity_and_value(shift_date: datetime, shift_time: str) -> tuple:
     if 0 <= shift_date.weekday() <= 4 or shift_date.weekday() == 6:
         if shift_time == SHIFT_OPTIONS[0]:
             return CAPACITY_OPTIONS['regular_day_morning'], VALUE_OPTIONS['regular_day_morning']
@@ -114,7 +113,7 @@ def delete_previous_shifts(user: User):
     Shift.objects.filter(date__gte=next_sunday, date__lte=next_saturday, user=user).delete()
 
 
-def get_list_of_workers_per_day():
+def get_list_of_workers_per_day() -> dict:
     result = {}
     next_sunday = get_next_sunday_date()
     for i in range(7):
@@ -179,14 +178,14 @@ def make_fake_shifts_for_test():
             shift.save()
 
 
-def get_shifts_list():
+def get_shifts_list() -> list:
     next_sunday = get_next_sunday_date()
     next_saturday = next_sunday + datetime.timedelta(6)
     shifts_list = Shift.objects.filter(date__gte=next_sunday, date__lte=next_saturday)
     return shifts_list
 
 
-def sort_list(shifts_dict):
+def sort_list(shifts_dict: dict) -> list:
     shift_capacity = []
     for key, value in shifts_dict.items():
         shift_capacity.append((key, (len(value) / CAPACITY_AND_VALUES[key][0])))
@@ -194,7 +193,7 @@ def sort_list(shifts_dict):
     return shift_capacity
 
 
-def get_worker_dict():
+def get_worker_dict() -> dict:
     workers_list = User.objects.all()
     worker_dict = {}
     for workers in workers_list:
@@ -202,7 +201,7 @@ def get_worker_dict():
     return worker_dict
 
 
-def blocked_shifts_by_shift(shift_name):
+def blocked_shifts_by_shift(shift_name: str) -> list[str]:
     arr = shift_name.split('_')
     shift_day = arr[0]
     shift_time = arr[1]
@@ -226,7 +225,7 @@ def blocked_shifts_by_shift(shift_name):
     return blocked_shifts
 
 
-def make_schedule():
+def make_schedule() -> dict:
     list_of_ready = []
     shifts_dict = get_list_of_workers_per_day()  # dict of shift and list of names
     worker_salary_dict = get_worker_dict()  # names of workers with values = 0
@@ -326,7 +325,7 @@ def make_schedule():
     return shifts_dict
 
 
-def update_to_selected(values):
+def update_to_selected(values: str):
     values = values.replace("\'", "\"")
     shifts_dict = json.loads(values)
     next_sunday = get_next_sunday_date()
@@ -338,7 +337,7 @@ def update_to_selected(values):
                     selected=True)
 
 
-def get_week_schedule(sunday):
+def get_week_schedule(sunday: datetime) -> dict:
     result = {}
     for i in range(7):
         week_date = sunday + datetime.timedelta(i)
@@ -357,7 +356,7 @@ def get_week_schedule(sunday):
     return result
 
 
-def get_user_shifts(user: User):
+def get_user_shifts(user: User) -> list:
     last_sunday = get_next_sunday_date() - datetime.timedelta(7)
     last_saturday = last_sunday + datetime.timedelta(6)
     shifts_list = Shift.objects.filter(date__gte=last_sunday, date__lte=last_saturday, user=user, selected=True)
