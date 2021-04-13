@@ -64,7 +64,7 @@ def get_next_sunday_date() -> datetime:
     return next_sunday
 
 
-def get_next_week_dates(sunday: datetime) -> list[datetime]:
+def get_next_week_dates(sunday: datetime) -> list:
     week_dates = []
     for i in range(7):
         week_dates.append(sunday + datetime.timedelta(i))
@@ -201,7 +201,7 @@ def get_worker_dict() -> dict:
     return worker_dict
 
 
-def blocked_shifts_by_shift(shift_name: str) -> list[str]:
+def blocked_shifts_by_shift(shift_name: str) -> list:
     arr = shift_name.split('_')
     shift_day = arr[0]
     shift_time = arr[1]
