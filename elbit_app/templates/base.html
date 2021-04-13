@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Schedule Manager</title>
+    <link rel="stylesheet" href="{% static 'css/master.css' %}"/>
+
+</head>
+<body>
+
+<header class="site-header">
+    <div class="wrapper site-header__wrapper">
+        <div class="site-header__start">
+            <a href="{% url 'home' %}" class="brand">
+                <img class="logo" alt="Schedule-manager"
+                     src="../static/css/Logo.png"></a>
+        </div>
+        <div class="site-header__middle">
+            <nav class="nav">
+                <ul class="nav__wrapper">
+                    {% if user.is_authenticated %}
+                    <li><a href="{% url 'submitting_shifts' %}">Submitting Shifts</a></li>
+                    <li><a href="{% url 'work_schedule' %}">Work Schedule</a></li>
+                    <li><a href="{% url 'create_schedule' %}">Create Schedule</a></li>
+                    {% else %}
+                    <li><a href="{% url 'user_login' %}">Submitting Shifts</a></li>
+                    <li><a href="{% url 'user_login' %}">Work Schedule</a></li>
+                    {% endif %}
+                </ul>
+            </nav>
+        </div>
+        <div class="site-header__end">
+            {% if user.is_authenticated %}
+            <li><a class="nav-link" href="{% url 'logout' %}">Logout {{ user.username }} </a></li>
+            {% else %}
+            <li><a class="nav-link" href="{% url 'user_login' %}">Login</a></li>
+            {% endif %}
+        </div>
+    </div>
+</header>
+
+<div class="container">
+    {% block body_block %}
+    <!--    anything outside of this will be inherit if you extend this-->
+    {% endblock %}
+</div>
+
+
+</body>
+</html>

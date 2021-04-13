@@ -1,0 +1,39 @@
+
+.table-responsive-down {
+    margin-bottom: 20px;
+}
+
+.page-header {
+    text-align: center;
+}
+
+
+.container-submit {
+    margin-right: 35%;
+}
+
+
+.form-control {
+    background-color: lightyellow ;
+    font-family: "Open Sans", sans-serif;
+    width: 30%;
+    text-overflow: ellipsis;
+    display: inline-block;
+    font-size: 14px;
+    outline: 0;
+    transition: border 0.1s ease;
+    resize: none;
+    border: 1px solid black;
+    border-radius: 10px;
+    padding: 5px 3px 0px 10px;
+}
+
+.instructions {
+    font-size: 20px;
+    font-weight: bold;
+}
+
+.markedGeen {
+    color: rgb(57, 163, 57);
+}
+  

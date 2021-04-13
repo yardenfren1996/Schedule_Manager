@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+{% extends 'base.html' %}
+{% load static %}
+{% block body_block %}
+<div class="container">
+    {% if user.is_authenticated %}
+    <h1>Hello {{ user.username }}!</h1>
+    <h2>Your shifts for this week:</h2>
+    {% for shift in user_shifts %}
+    <ul class="shifts">{{ shift }},</ul>
+    {% empty %}
+    <h3>You don't have any shifts for this week </h3>
+    {% endfor %}
+    {% else %}
+    <h1>Wellcome to Shifts Manager</h1>
+    <h2>Please login</h2>
+    {% endif %}
+</div>
+{% endblock %}

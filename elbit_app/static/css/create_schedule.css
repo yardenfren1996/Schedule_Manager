@@ -1,0 +1,23 @@
+
+table {
+    border: 2px solid black;
+    margin-bottom: 20px;
+}
+th{
+    border: 2px solid black;
+}
+td{
+    padding-left: 5px;
+    padding-right: 5px;
+    padding-bottom: 10px;
+    border: 1px solid black;
+    text-align: left;
+    vertical-align: top;
+
+}
+.page-header {
+    text-align: center;
+}
+.warning{
+    color: #B23850;
+}

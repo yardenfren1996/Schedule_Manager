@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+{% extends 'base.html' %}
+{% load static %}
+{% load filter_tags %}
+{% block body_block %}
+<link rel="stylesheet" href="{% static 'css/create_schedule.css' %}">
+<div class="container">
+    <div class="page-header">
+        <h1>This is the schedule:</h1>
+    </div>
+</div>
+
+<form id="approve_schedule" name="approve_schedule" action="{% url 'post_schedule' %}" method="post">
+    {% csrf_token %}
+    <div class="container" align='center'>
+        <table class="table">
+            <tr>
+                <th>Sunday</th>
+                <th>Monday</th>
+                <th>Tuesday</th>
+                <th>Wednesday</th>
+                <th>Thursday</th>
+                <th>Friday</th>
+                <th>Saturday</th>
+            </tr>
+            {% for row in total_shifts_mat %}
+            <tr>
+
+                {% for cell in row %}
+                <td>
+                    <h5>{{ cell|replace_with_space:"_" }}</h5>
+                    <small class="{% if shifts_dict|get_value:cell|length < capacity_dict|get_capacity:cell %}
+                    warning
+                    {% endif %}"
+                    > number of assigners : {{ shifts_dict|get_value:cell|length }} /
+                        {{capacity_dict|get_capacity:cell}} </small><br>
+                    {% for name in shifts_dict|get_value:cell %}
+                    <br>{{ name }}
+                    {% endfor %}
+                </td>
+                {% endfor %}
+            </tr>
+            {% endfor %}
+
+        </table>
+
+    </div>
+
+    <div class="container-submit" align="center">
+        <h1>Do You approve?</h1>
+        <input type="hidden" name="result" id="result" value="{{ shifts_dict }}"/>
+        <input class="btn action-btn" type="submit" value="Post" >
+    </div>
+</form>
+
+
+{% endblock %}

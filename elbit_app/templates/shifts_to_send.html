@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+{% extends 'base.html' %}
+{% load static %}
+{% block body_block %}
+<link rel="stylesheet" href="{% static 'css/shifts_to_send.css' %}">
+<script type="text/javascript" src="{% static 'js/submit_shifts.js' %}"></script>
+<div class="container">
+    <div class="page-header">
+        <h1> Pick Your Shifts <small class="instructions">press on the right squares</small></h1>
+    </div>
+</div>
+
+
+<form id="shifts_to_send" name="shifts_to_send" action="{% url 'send_confirm' %}" method="post">
+    {% csrf_token %}
+<div class="container" align = 'center'>
+
+    <table class="table-responsive-down">
+        <tr>
+            <th>Sunday</th>
+            <th>Monday</th>
+            <th>Tuesday</th>
+            <th>Wednesday</th>
+            <th>Thursday</th>
+            <th>Friday</th>
+            <th>Saturday</th>
+        </tr>
+        {% for shift in shift_options_list %}
+        <tr>
+
+                {% for date in next_week_dates %}
+            <td><button class="btn" onclick="addItem(this)"  type="button" value="({{ date }},{{ shift }})" >{{ shift }}</button></td>
+            {% endfor %}
+            <input type="hidden" name="result" id="result" />
+        </tr>
+        {% endfor %}
+
+    </table>
+
+    <div>
+        <p class="instructions">Selected squares are turn <span class="markedGeen">GREEN</span></p>
+    </div>
+
+    <textarea class="form-control" rows="2" placeholder="comments..."></textarea>
+
+
+</div>
+
+<div class="container-submit" align="right">
+    <button class="btn action-btn" type="button" id="submit_button" >Submit</button>
+</div>
+</form>
+
+
+{% endblock %}
+

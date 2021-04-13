@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+{% extends "base.html" %}
+{% load static %}
+{% block body_block %}
+<link rel="stylesheet" href="{% static 'css/login.css' %}">
+<div class="form-conatiner">
+    <form action="{% url 'user_login' %}" method="post">
+        <h1>Please Login</h1>
+        {% csrf_token %}
+        <div class="form-group">
+            <label for="username" class="control-label">Username</label>
+            <div>
+                <input type="text" class="form-control" name="username" placeholder="Username">
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="password" class="control-label">Password</label>
+            <div>
+                <input type="password" class="form-control" name="password" placeholder="Password">
+            </div>
+        </div>
+        <div class="form-group">
+            <div>
+                <div class="checkbox">
+                    <label>
+                        <input type="checkbox"> Remember me
+                    </label>
+                </div>
+            </div>
+        </div>
+        <div class="form-group">
+            <div>
+                <button type="submit" class="btn action-btn">Login</button>
+            </div>
+        </div>
+    </form>
+</div>
+
+{% endblock %}
